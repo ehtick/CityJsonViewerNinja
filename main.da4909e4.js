@@ -123374,7 +123374,7 @@ var _default2 = {
       var ratio = viewer.clientWidth / viewer.clientHeight;
       this.scene = new THREE.Scene();
       this.camera = new THREE.PerspectiveCamera(60, ratio, 0.0001, 4000);
-      this.camera.position.set(2, 2, 2);
+      this.camera.position.set(0, -2, 2);
       this.camera.up.set(0, 0, 1);
       this.renderer = new THREE.WebGLRenderer({
         antialias: true
@@ -131533,7 +131533,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45109" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45373" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
