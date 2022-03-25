@@ -45863,8 +45863,135 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
-  name: 'app',
+  name: 'App',
   components: {
     ColorEditor: _ColorEditor.default,
     NinjaSidebar: _NinjaSidebar.default,
@@ -45910,15 +46037,6 @@ var _default = {
       background_color: 0xd9eefc
     };
   },
-  watch: {
-    selected_objid: function selected_objid() {
-      if (this.selected_objid != null) {
-        var card_id = _jquery.default.escapeSelector(this.selected_objid);
-
-        (0, _jquery.default)("#".concat(card_id))[0].scrollIntoViewIfNeeded();
-      }
-    }
-  },
   computed: {
     activeCityModel: function activeCityModel() {
       if (this.active_version != null) {
@@ -45950,6 +46068,15 @@ var _default = {
     },
     existsSelected: function existsSelected() {
       return this.selected_objid != null;
+    }
+  },
+  watch: {
+    selected_objid: function selected_objid() {
+      if (this.selected_objid != null) {
+        var card_id = _jquery.default.escapeSelector(this.selected_objid);
+
+        (0, _jquery.default)("#".concat(card_id))[0].scrollIntoViewIfNeeded();
+      }
     }
   },
   methods: {
@@ -46080,32 +46207,35 @@ exports.default = _default;
                 "div",
                 { staticClass: "modal-body" },
                 [
-                  _c("ColorEditor", {
-                    attrs: { name: "Background" },
-                    model: {
-                      value: _vm.background_color,
-                      callback: function ($$v) {
-                        _vm.background_color = $$v
-                      },
-                      expression: "background_color",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.object_colors, function (color, type) {
-                    return _c("color-editor", {
-                      key: type,
-                      attrs: { name: type },
+                  _c(
+                    "ColorEditor",
+                    {
+                      attrs: { name: "Background" },
                       model: {
-                        value: _vm.object_colors[type],
+                        value: _vm.background_color,
                         callback: function ($$v) {
-                          _vm.$set(_vm.object_colors, type, $$v)
+                          _vm.background_color = $$v
                         },
-                        expression: "object_colors[type]",
+                        expression: "background_color",
                       },
-                    })
-                  }),
+                    },
+                    _vm._l(_vm.object_colors, function (color, type) {
+                      return _c("color-editor", {
+                        key: type,
+                        attrs: { name: type },
+                        model: {
+                          value: _vm.object_colors[type],
+                          callback: function ($$v) {
+                            _vm.$set(_vm.object_colors, type, $$v)
+                          },
+                          expression: "object_colors[type]",
+                        },
+                      })
+                    }),
+                    1
+                  ),
                 ],
-                2
+                1
               ),
             ]),
           ]
@@ -46177,8 +46307,9 @@ exports.default = _default;
                 },
               },
               [
-                _c("i", { staticClass: "far fa-question-circle mr-1" }),
-                _vm._v(" Help\n      "),
+                _c("i", { staticClass: "far fa-question-circle mr-1" }, [
+                  _vm._v(" Help\n      "),
+                ]),
               ]
             ),
           ]
@@ -46208,7 +46339,7 @@ exports.default = _default;
                 1
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "col-11 col-xl-4 p-0 h-100" }, [
+              _c("div", { staticClass: "col-4 p-0 h-100" }, [
                 _c(
                   "div",
                   {
@@ -46320,10 +46451,11 @@ exports.default = _default;
                                   },
                                 },
                                 [
-                                  _c("i", {
-                                    staticClass: "fas fa-download mr-1",
-                                  }),
-                                  _vm._v(" Download"),
+                                  _c(
+                                    "i",
+                                    { staticClass: "fas fa-download mr-1" },
+                                    [_vm._v(" Download\n                  ")]
+                                  ),
                                 ]
                               ),
                               _vm._v(" "),
@@ -46338,8 +46470,11 @@ exports.default = _default;
                                   },
                                 },
                                 [
-                                  _c("i", { staticClass: "fas fa-times mr-1" }),
-                                  _vm._v(" Close"),
+                                  _c(
+                                    "i",
+                                    { staticClass: "fas fa-times mr-1" },
+                                    [_vm._v(" Close\n                  ")]
+                                  ),
                                 ]
                               ),
                             ]
@@ -46380,29 +46515,34 @@ exports.default = _default;
                         staticClass: "p-3",
                       },
                       [
-                        _c("branch-selector", {
-                          attrs: { versioning: _vm.citymodel.versioning },
-                          model: {
-                            value: _vm.active_branch,
-                            callback: function ($$v) {
-                              _vm.active_branch = $$v
-                            },
-                            expression: "active_branch",
-                          },
-                        }),
-                        _vm._v(" "),
-                        _c("version-list", {
-                          attrs: {
-                            versioning: _vm.citymodel.versioning,
-                            active_branch: _vm.active_branch,
-                            active_version: _vm.active_version,
-                          },
-                          on: {
-                            "update:active_version": function ($event) {
-                              _vm.active_version = $event
+                        _c(
+                          "branch-selector",
+                          {
+                            attrs: { versioning: _vm.citymodel.versioning },
+                            model: {
+                              value: _vm.active_branch,
+                              callback: function ($$v) {
+                                _vm.active_branch = $$v
+                              },
+                              expression: "active_branch",
                             },
                           },
-                        }),
+                          [
+                            _c("version-list", {
+                              attrs: {
+                                versioning: _vm.citymodel.versioning,
+                                active_branch: _vm.active_branch,
+                                active_version: _vm.active_version,
+                              },
+                              on: {
+                                "update:active_version": function ($event) {
+                                  _vm.active_version = $event
+                                },
+                              },
+                            }),
+                          ],
+                          1
+                        ),
                       ],
                       1
                     )
@@ -46411,7 +46551,7 @@ exports.default = _default;
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "col-12 col-xl-7 p-0 h-100" },
+                { staticClass: "col-7 p-0 h-100" },
                 [
                   _c(
                     "div",
@@ -46448,24 +46588,78 @@ exports.default = _default;
                     1
                   ),
                   _vm._v(" "),
-                  _c("ThreeJsViewer", {
-                    attrs: {
-                      citymodel: _vm.activeCityModel,
-                      selectedObjid: _vm.selected_objid,
-                      objectColors: _vm.object_colors,
-                      backgroundColor: _vm.background_color,
-                    },
-                    on: {
-                      object_clicked: function ($event) {
-                        return _vm.move_to_object($event)
+                  _c(
+                    "ThreeJsViewer",
+                    {
+                      attrs: {
+                        citymodel: _vm.activeCityModel,
+                        "selected-objid": _vm.selected_objid,
+                        "object-colors": _vm.object_colors,
+                        "background-color": _vm.background_color,
                       },
-                      rendering: function ($event) {
-                        _vm.loading = $event
+                      on: {
+                        object_clicked: function ($event) {
+                          return _vm.move_to_object($event)
+                        },
+                        rendering: function ($event) {
+                          _vm.loading = $event
+                        },
                       },
                     },
-                  }),
-                  _vm._v(" "),
-                  _vm._m(2),
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "card",
+                          staticStyle: {
+                            position: "absolute",
+                            "z-index": "1",
+                            bottom: "0px",
+                            right: "0px",
+                          },
+                        },
+                        [
+                          _c("div", { staticClass: "m-1 px-2" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "https://cityjson.org",
+                                  target: "_blank",
+                                },
+                              },
+                              [
+                                _c("img", {
+                                  attrs: {
+                                    src: "https://www.cityjson.org/assets/images/cityjson_logo.svg",
+                                    alt: "",
+                                  },
+                                }),
+                              ]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "m-1 px-2" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "card-link",
+                                attrs: {
+                                  href: "https://github.com/cityjson/ninja",
+                                  target: "_blank",
+                                },
+                              },
+                              [
+                                _c("i", { staticClass: "fab fa-github" }, [
+                                  _vm._v(" ninja v0.4.0"),
+                                ]),
+                              ]
+                            ),
+                          ]),
+                        ]
+                      ),
+                    ]
+                  ),
                 ],
                 1
               ),
@@ -46481,13 +46675,13 @@ exports.default = _default;
                 _c("p", [_vm._v("Upload a CityJSON file to have fun!")]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group mb-3" }, [
-                  _vm._m(3),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c("div", { staticClass: "custom-file" }, [
                     _c("input", {
                       ref: "cityJSONFile",
                       staticClass: "custom-file-input",
-                      attrs: { type: "file", id: "inputGroupFile01" },
+                      attrs: { id: "inputGroupFile01", type: "file" },
                       on: { change: _vm.selectedFile },
                     }),
                     _vm._v(" "),
@@ -46522,7 +46716,7 @@ exports.default = _default;
                         _vm._s(_vm.error_message) +
                         "\n            "
                     ),
-                    _vm._m(4),
+                    _vm._m(3),
                   ]
                 ),
               ]),
@@ -46562,8 +46756,9 @@ var staticRenderFns = [
                     attrs: { id: "helpModelLabel" },
                   },
                   [
-                    _c("i", { staticClass: "far fa-question-circle mr-1" }),
-                    _vm._v(" Help"),
+                    _c("i", { staticClass: "far fa-question-circle mr-1" }, [
+                      _vm._v(" Help\n          "),
+                    ]),
                   ]
                 ),
                 _vm._v(" "),
@@ -46633,8 +46828,9 @@ var staticRenderFns = [
                   _vm._v(" "),
                   _c("li", [
                     _vm._v("Toggle the editing mode with the "),
-                    _c("i", { staticClass: "fas fa-pen mx-1 text-muted" }),
-                    _vm._v(" icon to edit it. Then save the changes"),
+                    _c("i", { staticClass: "fas fa-pen mx-1 text-muted" }, [
+                      _vm._v(" icon to edit it. Then save the changes"),
+                    ]),
                   ]),
                   _vm._v(" "),
                   _c("li", [
@@ -46660,7 +46856,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "helpModelLabel" } },
-        [_c("i", { staticClass: "fas fa-sliders-h mr-1" }), _vm._v(" Settings")]
+        [
+          _c("i", { staticClass: "fas fa-sliders-h mr-1" }, [
+            _vm._v(" Settings\n          "),
+          ]),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -46681,57 +46881,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "card",
-        staticStyle: {
-          position: "absolute",
-          "z-index": "1",
-          bottom: "0px",
-          right: "0px",
-        },
-      },
-      [
-        _c("div", { staticClass: "m-1 px-2" }, [
-          _c(
-            "a",
-            { attrs: { href: "https://cityjson.org", target: "_blank" } },
-            [
-              _c("img", {
-                attrs: {
-                  src: "https://www.cityjson.org/assets/images/cityjson_logo.svg",
-                  alt: "",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "m-1 px-2" }, [
-          _c(
-            "a",
-            {
-              staticClass: "card-link",
-              attrs: {
-                href: "https://github.com/cityjson/ninja",
-                target: "_blank",
-              },
-            },
-            [_c("i", { staticClass: "fab fa-github" }), _vm._v(" ninja v0.4.0")]
-          ),
-        ]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("span", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "fas fa-upload mr-1" }),
-        _vm._v(" Upload"),
+        _c("i", { staticClass: "fas fa-upload mr-1" }, [_vm._v(" Upload")]),
       ]),
     ])
   },
@@ -122878,8 +123030,8 @@ exports.ObjectMaterialParser = ObjectMaterialParser;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.objectColors = exports.defaultSemanticsColors = void 0;
-const objectColors = {
+exports.defaultSemanticsColors = exports.defaultObjectColors = void 0;
+const defaultObjectColors = {
   "Building": 0x7497df,
   "BuildingPart": 0x7497df,
   "BuildingInstallation": 0x7497df,
@@ -122902,7 +123054,7 @@ const objectColors = {
   "TunnelInstallation": 0x999999,
   "WaterBody": 0x4da6ff
 };
-exports.objectColors = objectColors;
+exports.defaultObjectColors = defaultObjectColors;
 const defaultSemanticsColors = {
   "GroundSurface": 0x999999,
   "WallSurface": 0xffffff,
@@ -122933,7 +123085,7 @@ function createColorsArray(colors) {
     surface_data.push(color.convertSRGBToLinear());
   }
 
-  for (let i = surface_data.length; i < 256; i++) {
+  for (let i = surface_data.length; i < 110; i++) {
     surface_data.push(new _three.Color(0xffffff).convertSRGBToLinear());
   }
 
@@ -122942,27 +123094,15 @@ function createColorsArray(colors) {
 
 
 function createObjectColorShader(shader, objectColors) {
-  const cm_data = [];
-
-  for (const objType in objectColors) {
-    const color = new _three.Color(objectColors[objType]);
-    cm_data.push(color.convertSRGBToLinear());
-  }
-
-  for (let i = cm_data.length; i < 256; i++) {
-    cm_data.push(new _three.Color(0xffffff).convertSRGBToLinear());
-  }
-
+  const cm_data = createColorsArray(objectColors);
   const surface_data = createColorsArray(_colors.defaultSemanticsColors);
   const newShader = { ...shader
   };
   newShader.uniforms = {
     objectColors: {
-      type: "v3v",
       value: cm_data
     },
     surfaceColors: {
-      type: "v3v",
       value: surface_data
     },
     showSemantics: {
@@ -122971,7 +123111,7 @@ function createObjectColorShader(shader, objectColors) {
     selectSurface: {
       value: true
     },
-    showGeometry: {
+    showLod: {
       value: -1
     },
     highlightedObjId: {
@@ -122996,18 +123136,19 @@ function createObjectColorShader(shader, objectColors) {
 			attribute float objectid;
 			attribute float geometryid;
 			attribute float boundaryid;
+			attribute float lodid;
 			attribute int type;
 			attribute int surfacetype;
 			varying vec3 diffuse_;
-			uniform vec3 objectColors[256];
-			uniform vec3 surfaceColors[256];
+			uniform vec3 objectColors[ 50 ];
+			uniform vec3 surfaceColors[ 50 ];
 			uniform vec3 highlightColor;
 			uniform float highlightedObjId;
 			uniform float highlightedGeomId;
 			uniform float highlightedBoundId;
 			uniform bool showSemantics;
 			uniform bool selectSurface;
-			uniform float showGeometry;
+			uniform float showLod;
 		` + newShader.vertexShader.replace(/#include <uv_vertex>/, `
 			#include <uv_vertex>
 			vec3 color_;
@@ -123027,7 +123168,7 @@ function createObjectColorShader(shader, objectColors) {
 			}
 			`).replace(/#include <fog_vertex>/, `
 			#include <fog_vertex>
-			if ( abs ( geometryid - showGeometry ) > 0.5 && showGeometry >= 0.0 ) {
+			if ( abs ( lodid - showLod ) > 0.5 && showLod >= 0.0 ) {
 				gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
 			}
 			`);
@@ -123044,30 +123185,9 @@ class CityJSONWorkerParser {
     this.matrix = null;
     this.onChunkLoad = null;
     this.chunkSize = 2000;
-    this.objectColors = {
-      "Building": 0x7497df,
-      "BuildingPart": 0x7497df,
-      "BuildingInstallation": 0x7497df,
-      "Bridge": 0x999999,
-      "BridgePart": 0x999999,
-      "BridgeInstallation": 0x999999,
-      "BridgeConstructionElement": 0x999999,
-      "CityObjectGroup": 0xffffb3,
-      "CityFurniture": 0xcc0000,
-      "GenericCityObject": 0xcc0000,
-      "LandUse": 0xffffb3,
-      "PlantCover": 0x39ac39,
-      "Railway": 0x000000,
-      "Road": 0x999999,
-      "SolitaryVegetationObject": 0x39ac39,
-      "TINRelief": 0xffdb99,
-      "TransportSquare": 0x999999,
-      "Tunnel": 0x999999,
-      "TunnelPart": 0x999999,
-      "TunnelInstallation": 0x999999,
-      "WaterBody": 0x4da6ff
-    };
+    this.objectColors = _colors.defaultObjectColors;
     this.surfaceColors = {};
+    this.lods = [];
     this.resetMaterial();
   }
 
@@ -123095,6 +123215,8 @@ class CityJSONWorkerParser {
       geom.setAttribute('surfacetype', new _three.Int32BufferAttribute(surfaceTypeArray, 1));
       const geomIdsArray = new Float32Array(e.data.geomIds);
       geom.setAttribute('geometryid', new _three.BufferAttribute(geomIdsArray, 1));
+      const lodIdsArray = new Float32Array(e.data.lodIds);
+      geom.setAttribute('lodid', new _three.BufferAttribute(lodIdsArray, 1));
       const boundaryIdsArray = new Float32Array(e.data.boundaryIds);
       geom.setAttribute('boundaryid', new _three.BufferAttribute(boundaryIdsArray, 1));
       geom.attributes.position.needsUpdate = true;
@@ -123104,7 +123226,10 @@ class CityJSONWorkerParser {
       }
 
       geom.computeVertexNormals();
+      material.uniforms.objectColors.value = createColorsArray(e.data.objectColors);
       material.uniforms.surfaceColors.value = createColorsArray(e.data.surfaceColors);
+      context.lods = e.data.lods;
+      context.objectColors = e.data.objectColors;
       context.surfaceColors = e.data.surfaceColors;
       const mesh = new _three.Mesh(geom, material);
       scene.add(mesh);
@@ -123116,7 +123241,8 @@ class CityJSONWorkerParser {
 
     worker.postMessage([data, {
       chunkSize: this.chunkSize,
-      objectColors: this.objectColors
+      objectColors: this.objectColors,
+      lods: this.lods
     }]);
   }
 
@@ -123227,6 +123353,20 @@ var _default2 = {
         };
       }
     },
+    surfaceColors: {
+      type: Object,
+      default: function _default() {
+        return {
+          "GroundSurface": 0x999999,
+          "WallSurface": 0xffffff,
+          "RoofSurface": 0xff0000,
+          "TrafficArea": 0x6e6e6e,
+          "AuxiliaryTrafficArea": 0x2c8200,
+          "Window": 0x0059ff,
+          "Door": 0x640000
+        };
+      }
+    },
     backgroundColor: {
       type: Number,
       default: 0xd9eefc
@@ -123235,14 +123375,17 @@ var _default2 = {
       type: Boolean,
       default: true
     },
-    activeGeometry: {
+    activeLod: {
       type: Number,
       default: -1
     }
   },
   data: function data() {
     return {
-      camera_init: true
+      camera_init: true,
+      lods: [],
+      moved: false,
+      parser: null
     };
   },
   watch: {
@@ -123251,10 +123394,40 @@ var _default2 = {
       this.renderer.render(this.scene, this.camera);
     },
     objectColors: {
-      handler: function handler(newVal) {
+      handler: function handler(newColors) {
         var scope = this;
         this.scene.traverse(function (mesh) {
-          mesh.material.color.setHex(newVal[scope.citymodel.CityObjects[mesh.name].type]);
+          if (mesh.material) {
+            for (var objtype in newColors) {
+              var idx = Object.keys(scope.parser.objectColors).indexOf(objtype);
+
+              if (idx > -1) {
+                var col = new THREE.Color();
+                col.setHex('0x' + newColors[objtype].toString(16));
+                mesh.material.uniforms.objectColors.value[idx] = col;
+              }
+            }
+          }
+        });
+        this.renderer.render(this.scene, this.camera);
+      },
+      deep: true
+    },
+    surfaceColors: {
+      handler: function handler(newColors) {
+        var scope = this;
+        this.scene.traverse(function (mesh) {
+          if (mesh.material) {
+            for (var surface in newColors) {
+              var idx = Object.keys(scope.parser.surfaceColors).indexOf(surface);
+
+              if (idx > -1) {
+                var col = new THREE.Color();
+                col.setHex('0x' + newColors[surface].toString(16));
+                mesh.material.uniforms.surfaceColors.value[idx] = col;
+              }
+            }
+          }
         });
         this.renderer.render(this.scene, this.camera);
       },
@@ -123262,14 +123435,20 @@ var _default2 = {
     },
     citymodel: {
       handler: function handler(newVal) {
+        var _this = this;
+
         this.$emit('rendering', true);
         this.clearScene();
-        var parser = new _cityjsonThreejsLoader.CityJSONWorkerParser();
+        this.parser = new _cityjsonThreejsLoader.CityJSONWorkerParser();
+        var parser = this.parser;
         parser.chunkSize = 2000;
         var scope = this;
 
         parser.onChunkLoad = function () {
           scope.renderer.render(scope.scene, scope.camera);
+          scope.lods = parser.lods;
+
+          _this.$emit('chunkLoaded');
         };
 
         var loader = new _cityjsonThreejsLoader.CityJSONLoader(parser);
@@ -123297,10 +123476,10 @@ var _default2 = {
       });
       this.renderer.render(this.scene, this.camera);
     },
-    activeGeometry: function activeGeometry(geomIdx) {
+    activeLod: function activeLod(lodIdx) {
       this.scene.traverse(function (c) {
         if (c.material) {
-          c.material.uniforms.showGeometry.value = geomIdx;
+          c.material.uniforms.showLod.value = lodIdx;
         }
       });
       this.renderer.render(this.scene, this.camera);
@@ -123315,38 +123494,67 @@ var _default2 = {
     this.mouse = null;
   },
   mounted: function mounted() {
+    var _this2 = this;
+
     this.$emit('rendering', true);
     this.initScene();
 
     if (Object.keys(this.citymodel).length > 0) {
-      var parser = new _cityjsonThreejsLoader.CityJSONWorkerParser();
-      parser.chunkSize = 2000;
+      this.parser = new _cityjsonThreejsLoader.CityJSONWorkerParser();
+      this.parser.chunkSize = 2000;
       var scope = this;
 
-      parser.onChunkLoad = function () {
+      this.parser.onChunkLoad = function () {
         scope.renderer.render(scope.scene, scope.camera);
+        scope.lods = scope.parser.lods;
+
+        _this2.$emit('chunkLoaded');
       };
 
-      var loader = new _cityjsonThreejsLoader.CityJSONLoader(parser);
+      var loader = new _cityjsonThreejsLoader.CityJSONLoader(this.parser);
       loader.load(this.citymodel);
       this.scene.add(loader.scene);
     }
 
     this.renderer.render(this.scene, this.camera);
-    var self = this;
-    this.renderer.domElement.addEventListener('dblclick', function (ev) {
-      if (ev.button == 0) {
-        //leftClick
-        self.handleClick();
-      }
-    });
+    this.renderer.domElement.addEventListener('pointerdown', this.pointerDown, false);
+    this.renderer.domElement.addEventListener('pointermove', this.pointerMove, false);
+    this.renderer.domElement.addEventListener('pointerup', this.pointerUp, false);
     this.$emit('rendering', false);
   },
   methods: {
-    handleClick: function handleClick() {
+    pointerDown: function pointerDown() {
+      this.moved = false;
+    },
+    pointerUp: function pointerUp(e) {
+      if (!this.moved) {
+        this.handleClick(e);
+      }
+    },
+    pointerMove: function pointerMove() {
+      this.moved = true;
+    },
+    getActiveIntersection: function getActiveIntersection(results) {
+      // Filters through the results to find the first one for the active LoD
+      if (this.activeLod > -1) {
+        for (var i = 0; i < results.length; i++) {
+          var _results$i = results[i],
+              face = _results$i.face,
+              object = _results$i.object;
+          var lodIdx = object.geometry.getAttribute("lodid").getX(face.a);
+
+          if (lodIdx == this.activeLod) {
+            return results[i];
+          }
+        }
+      }
+
+      return results[0];
+    },
+    handleClick: function handleClick(e) {
       var rect = this.renderer.domElement.getBoundingClientRect();
-      this.mouse.x = (event.clientX - rect.left) / this.renderer.domElement.clientWidth * 2 - 1;
-      this.mouse.y = -((event.clientY - rect.top) / this.renderer.domElement.clientHeight) * 2 + 1; //get cameraposition
+      this.mouse.x = (e.clientX - rect.left) / this.renderer.domElement.clientWidth * 2 - 1;
+      this.mouse.y = -((e.clientY - rect.top) / this.renderer.domElement.clientHeight) * 2 + 1; //get cameraposition
 
       this.raycaster.setFromCamera(this.mouse, this.camera); //calculate intersects
 
@@ -123355,12 +123563,12 @@ var _default2 = {
       if (intersects.length == 0) {
         this.$emit('object_clicked', null);
         return;
-      } //get the id of the first object that intersects (equals the clicked object)
+      }
 
+      var _this$getActiveInters = this.getActiveIntersection(intersects),
+          face = _this$getActiveInters.face,
+          object = _this$getActiveInters.object;
 
-      var _intersects$ = intersects[0],
-          face = _intersects$.face,
-          object = _intersects$.object;
       var objIds = object.geometry.getAttribute('objectid');
 
       if (objIds) {
@@ -123374,7 +123582,7 @@ var _default2 = {
       var ratio = viewer.clientWidth / viewer.clientHeight;
       this.scene = new THREE.Scene();
       this.camera = new THREE.PerspectiveCamera(60, ratio, 0.0001, 4000);
-      this.camera.position.set(0, -2, 2);
+      this.camera.position.set(0, -1, 1);
       this.camera.up.set(0, 0, 1);
       this.renderer = new THREE.WebGLRenderer({
         antialias: true
@@ -123425,6 +123633,9 @@ var _default2 = {
       spot_light.intensity = 0.4;
       spot_light.position.normalize();
       this.scene.add(spot_light);
+    },
+    getLods: function getLods() {
+      return this.lods;
     }
   }
 };
@@ -131533,7 +131744,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45373" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38409" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

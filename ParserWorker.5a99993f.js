@@ -36420,8 +36420,8 @@ earcut.flatten = function (data) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.objectColors = exports.defaultSemanticsColors = void 0;
-const objectColors = {
+exports.defaultSemanticsColors = exports.defaultObjectColors = void 0;
+const defaultObjectColors = {
   "Building": 0x7497df,
   "BuildingPart": 0x7497df,
   "BuildingInstallation": 0x7497df,
@@ -36444,7 +36444,7 @@ const objectColors = {
   "TunnelInstallation": 0x999999,
   "WaterBody": 0x4da6ff
 };
-exports.objectColors = objectColors;
+exports.defaultObjectColors = defaultObjectColors;
 const defaultSemanticsColors = {
   "GroundSurface": 0x999999,
   "WallSurface": 0xffffff,
@@ -36477,12 +36477,14 @@ class GeometryParser {
     this.objectIds = objectIds;
     this.objectColors = objectColors;
     this.surfaceColors = _colors.defaultSemanticsColors;
+    this.lods = [];
     this.meshVertices = [];
     this.meshObjIds = [];
     this.meshObjType = [];
     this.meshSemanticSurfaces = [];
     this.meshGeomIds = [];
     this.meshBoundaryIds = [];
+    this.meshLodIds = [];
   }
 
   clean() {
@@ -36492,6 +36494,7 @@ class GeometryParser {
     this.meshSemanticSurfaces = [];
     this.meshGeomIds = [];
     this.meshBoundaryIds = [];
+    this.meshLodIds = [];
   }
 
   parseGeometry(geometry, objectId, geomIdx) {
@@ -36521,17 +36524,37 @@ class GeometryParser {
     }
   }
 
+  getLodIndex(lod) {
+    const lodIdx = this.lods.indexOf(lod);
+
+    if (lodIdx < 0) {
+      const newIdx = this.lods.length;
+      this.lods.push(lod);
+      return newIdx;
+    }
+
+    return lodIdx;
+  }
+
   parseShell(boundaries, objectId, geomIdx, semantics = [], surfaces = []) {
     const vertices = this.meshVertices;
     const objIds = this.meshObjIds;
     const objTypes = this.meshObjType;
     const semanticTypes = this.meshSemanticSurfaces;
     const geomIds = this.meshGeomIds;
+    const lodIds = this.meshLodIds;
     const boundaryIds = this.meshBoundaryIds;
     const json = this.json;
-    const idIdx = this.objectIds.indexOf(objectId); // TODO: If not found, it should be appended
+    const idIdx = this.objectIds.indexOf(objectId);
+    const cityObjectTypeName = json.CityObjects[objectId].type;
+    let objType = Object.keys(this.objectColors).indexOf(cityObjectTypeName);
 
-    const objType = Object.keys(this.objectColors).indexOf(json.CityObjects[objectId].type); // Contains the boundary but with the right verticeId
+    if (objType < 0) {
+      objType = Object.keys(this.objectColors).length;
+      this.objectColors[cityObjectTypeName] = Math.floor(Math.random() * 0xffffff);
+    }
+
+    const lodIdx = this.getLodIndex(json.CityObjects[objectId].geometry[geomIdx].lod); // Contains the boundary but with the right verticeId
 
     for (let i = 0; i < boundaries.length; i++) {
       let boundary = [];
@@ -36565,6 +36588,7 @@ class GeometryParser {
           objTypes.push(objType);
           semanticTypes.push(surfaceType);
           geomIds.push(geomIdx);
+          lodIds.push(lodIdx);
           boundaryIds.push(i);
         }
       } else if (boundary.length > 3) {
@@ -36601,6 +36625,7 @@ class GeometryParser {
             objTypes.push(objType);
             semanticTypes.push(surfaceType);
             geomIds.push(geomIdx);
+            lodIds.push(lodIdx);
             boundaryIds.push(i);
           }
         }
@@ -36672,29 +36697,8 @@ class ChunkParser {
     this.meshVertices = [];
     this.meshObjIds = [];
     this.meshObjType = [];
-    this.objectColors = {
-      "Building": 0x7497df,
-      "BuildingPart": 0x7497df,
-      "BuildingInstallation": 0x7497df,
-      "Bridge": 0x999999,
-      "BridgePart": 0x999999,
-      "BridgeInstallation": 0x999999,
-      "BridgeConstructionElement": 0x999999,
-      "CityObjectGroup": 0xffffb3,
-      "CityFurniture": 0xcc0000,
-      "GenericCityObject": 0xcc0000,
-      "LandUse": 0xffffb3,
-      "PlantCover": 0x39ac39,
-      "Railway": 0x000000,
-      "Road": 0x999999,
-      "SolitaryVegetationObject": 0x39ac39,
-      "TINRelief": 0xffdb99,
-      "TransportSquare": 0x999999,
-      "Tunnel": 0x999999,
-      "TunnelPart": 0x999999,
-      "TunnelInstallation": 0x999999,
-      "WaterBody": 0x4da6ff
-    };
+    this.lods = [];
+    this.objectColors = {};
     this.surfaceColors = {};
     this.onchunkload = null;
   }
@@ -36702,6 +36706,7 @@ class ChunkParser {
   parse(data) {
     let i = 0;
     const geomParser = new _GeometryParser.GeometryParser(data, Object.keys(data.CityObjects), this.objectColors);
+    geomParser.lods = this.lods;
 
     for (const objectId in data.CityObjects) {
       const cityObject = data.CityObjects[objectId];
@@ -36720,6 +36725,7 @@ class ChunkParser {
     }
 
     this.returnObjects(geomParser, data);
+    this.objectColors = geomParser.objectColors;
     this.surfaceColors = geomParser.surfaceColors;
   }
 
@@ -36735,7 +36741,7 @@ class ChunkParser {
       vertices.push(...vertex);
     }
 
-    this.onchunkload(vertices, parser.meshObjIds, parser.meshObjType, parser.meshSemanticSurfaces, parser.meshGeomIds, parser.meshBoundaryIds, parser.surfaceColors);
+    this.onchunkload(vertices, parser.meshObjIds, parser.meshObjType, parser.meshSemanticSurfaces, parser.meshGeomIds, parser.meshLodIds, parser.meshBoundaryIds, parser.lods, parser.objectColors, parser.surfaceColors);
   }
 
 }
@@ -36758,9 +36764,13 @@ onmessage = function (e) {
     if (props.objectColors) {
       parser.objectColors = props.objectColors;
     }
+
+    if (props.lods) {
+      parser.lods = props.lods;
+    }
   }
 
-  parser.onchunkload = (v, objectIds, objectType, surfaceType, geomIds, boundaryIds, surfaceColors) => {
+  parser.onchunkload = (v, objectIds, objectType, surfaceType, geomIds, lodIds, boundaryIds, lods, objectColors, surfaceColors) => {
     const vertexArray = new Float32Array(v);
     const vertexBuffer = vertexArray.buffer;
     const msg = {
@@ -36769,7 +36779,10 @@ onmessage = function (e) {
       objectType,
       surfaceType,
       geomIds,
+      lodIds,
       boundaryIds,
+      lods,
+      objectColors,
       surfaceColors
     };
     postMessage(msg, [vertexBuffer]);
@@ -36805,7 +36818,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45373" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38409" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
