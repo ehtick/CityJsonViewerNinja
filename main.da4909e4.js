@@ -8873,20 +8873,35 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: 'ColorEditor',
   props: {
-    value: Number,
-    name: String
+    value: {
+      type: Number,
+      default: 0xffffff
+    },
+    name: {
+      type: String,
+      default: "Color"
+    }
   },
   computed: {
     color: function color() {
-      return this.value.toString(16);
+      return '#' + this.value.toString(16).padStart(6, '0');
     }
   },
   methods: {
     updateColor: function updateColor() {
-      var new_color = parseInt(this.$refs.colorValue.value, 16);
+      var new_color = parseInt(this.$refs.colorValue.value.substring(1), 16);
       this.$emit('input', new_color);
     }
   }
@@ -8907,21 +8922,15 @@ exports.default = _default;
   return _c("div", { staticClass: "form-group row" }, [
     _c("div", { staticClass: "input-group input-group-sm col" }, [
       _c("div", { staticClass: "input-group-prepend" }, [
-        _c(
-          "span",
-          {
-            staticClass: "input-group-text",
-            style: "color: #" + _vm.color,
-            attrs: { id: _vm.name },
-          },
-          [_vm._v(_vm._s(_vm.name))]
-        ),
+        _c("span", { staticClass: "input-group-text" }, [
+          _vm._v(_vm._s(_vm.name)),
+        ]),
       ]),
       _vm._v(" "),
       _c("input", {
         ref: "colorValue",
         staticClass: "form-control",
-        attrs: { type: "text", "aria-describedby": _vm.name },
+        attrs: { type: "color", "aria-describedby": _vm.name },
         domProps: { value: _vm.color },
         on: { input: _vm.updateColor },
       }),
@@ -9040,20 +9049,27 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: "SidebarItem",
   props: {
     icon: String,
     text: String
   },
-  methods: {
-    optionClicked: function optionClicked() {
-      this.$emit('click');
-    }
-  },
   computed: {
     icon_class: function icon_class() {
       return "fa-" + this.icon;
+    }
+  },
+  methods: {
+    optionClicked: function optionClicked() {
+      this.$emit('click');
     }
   }
 };
@@ -9084,7 +9100,7 @@ exports.default = _default;
     [
       _c("i", { staticClass: "fas sidebar-icon", class: _vm.icon_class }),
       _vm._v(" "),
-      _c("span", [_vm._v("\n        " + _vm._s(_vm.text) + "\n    ")]),
+      _c("span", [_vm._v("\n    " + _vm._s(_vm.text) + "\n  ")]),
     ]
   )
 }
@@ -9140,8 +9156,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: "NinjaSidebar",
+  components: {
+    SidebarItem: _SidebarItem.default
+  },
   props: {
     value: {
       type: String,
@@ -9154,9 +9182,6 @@ var _default = {
   },
   data: function data() {
     return {};
-  },
-  components: {
-    SidebarItem: _SidebarItem.default
   }
 };
 exports.default = _default;
@@ -9241,6 +9266,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+//
+//
+//
+//
+//
 //
 //
 //
@@ -15049,8 +15079,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: 'VersionListItem',
+  filters: {
+    moment_from: function moment_from(date) {
+      return (0, _moment2.default)(date).fromNow();
+    }
+  },
   props: {
     version: Object,
     vid: String,
@@ -15068,11 +15118,6 @@ var _default = {
     },
     moment: function moment() {
       return (0, _moment2.default)();
-    }
-  },
-  filters: {
-    moment_from: function moment_from(date) {
-      return (0, _moment2.default)(date).fromNow();
     }
   }
 };
@@ -15233,11 +15278,6 @@ var _default = {
     active_version: String,
     active_branch: String
   },
-  methods: {
-    isActive: function isActive(vid) {
-      return this.active_version == vid;
-    }
-  },
   computed: {
     orderedVersions: function orderedVersions() {
       var result = {};
@@ -15259,6 +15299,11 @@ var _default = {
       }
 
       return result;
+    }
+  },
+  methods: {
+    isActive: function isActive(vid) {
+      return this.active_version == vid;
     }
   }
 };
@@ -45990,6 +46035,161 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: 'App',
   components: {
@@ -46004,6 +46204,8 @@ var _default = {
       search_term: "",
       citymodel: {},
       selected_objid: null,
+      selectedGeometryId: -1,
+      selectedBoundaryId: -1,
       loading: false,
       error_message: null,
       active_sidebar: 'objects',
@@ -46034,7 +46236,22 @@ var _default = {
         "TunnelInstallation": 0x999999,
         "WaterBody": 0x4da6ff
       },
-      background_color: 0xd9eefc
+      surface_colors: {
+        "GroundSurface": 0x999999,
+        "WallSurface": 0xffffff,
+        "RoofSurface": 0xff0000,
+        "TrafficArea": 0x6e6e6e,
+        "AuxiliaryTrafficArea": 0x2c8200,
+        "Window": 0x0059ff,
+        "Door": 0x640000
+      },
+      background_color: 0xd9eefc,
+      selectionColor: 0xffc107,
+      showSemantics: true,
+      highlightSurface: false,
+      availableLoDs: [],
+      activeLoD: -1,
+      cameraLight: false
     };
   },
   computed: {
@@ -46093,8 +46310,17 @@ var _default = {
       });
       return result;
     },
-    move_to_object: function move_to_object(objid) {
-      this.selected_objid = objid;
+    move_to_object: function move_to_object(ids) {
+      if (ids) {
+        // `ids` is in the form of [ objectId, geometryId, boudnaryId ]
+        this.selected_objid = ids[0];
+        this.selectedGeometryId = ids[1];
+        this.selectedBoundaryId = ids[2];
+      } else {
+        this.selected_objid = null;
+        this.selectedGeometryId = -1;
+        this.selectedBoundaryId = -1;
+      }
     },
     reset: function reset() {
       this.citymodel = {};
@@ -46208,31 +46434,166 @@ exports.default = _default;
                 { staticClass: "modal-body" },
                 [
                   _c(
-                    "ColorEditor",
+                    "div",
                     {
-                      attrs: { name: "Background" },
-                      model: {
-                        value: _vm.background_color,
-                        callback: function ($$v) {
-                          _vm.background_color = $$v
-                        },
-                        expression: "background_color",
-                      },
+                      staticClass:
+                        "form-group row custom-control custom-switch ml-1",
                     },
-                    _vm._l(_vm.object_colors, function (color, type) {
-                      return _c("color-editor", {
-                        key: type,
-                        attrs: { name: type },
-                        model: {
-                          value: _vm.object_colors[type],
-                          callback: function ($$v) {
-                            _vm.$set(_vm.object_colors, type, $$v)
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.cameraLight,
+                            expression: "cameraLight",
                           },
-                          expression: "object_colors[type]",
+                        ],
+                        staticClass: "custom-control-input",
+                        attrs: { id: "cameraLightSwitch", type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.cameraLight)
+                            ? _vm._i(_vm.cameraLight, null) > -1
+                            : _vm.cameraLight,
                         },
-                      })
-                    }),
-                    1
+                        on: {
+                          change: function ($event) {
+                            var $$a = _vm.cameraLight,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 && (_vm.cameraLight = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.cameraLight = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.cameraLight = $$c
+                            }
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "cameraLightSwitch" },
+                        },
+                        [_vm._v("Camera light")]
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("ColorEditor", {
+                    attrs: { name: "Background" },
+                    model: {
+                      value: _vm.background_color,
+                      callback: function ($$v) {
+                        _vm.background_color = $$v
+                      },
+                      expression: "background_color",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("ColorEditor", {
+                    attrs: { name: "Selection" },
+                    model: {
+                      value: _vm.selectionColor,
+                      callback: function ($$v) {
+                        _vm.selectionColor = $$v
+                      },
+                      expression: "selectionColor",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "accordion",
+                      attrs: { id: "accordionExample" },
+                    },
+                    [
+                      _c("div", { staticClass: "card" }, [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "collapse",
+                            attrs: {
+                              id: "collapseOne",
+                              "aria-labelledby": "headingOne",
+                              "data-parent": "#accordionExample",
+                            },
+                          },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "card-body" },
+                              _vm._l(_vm.object_colors, function (color, type) {
+                                return _c("ColorEditor", {
+                                  key: type,
+                                  attrs: { name: type },
+                                  model: {
+                                    value: _vm.object_colors[type],
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.object_colors, type, $$v)
+                                    },
+                                    expression: "object_colors[type]",
+                                  },
+                                })
+                              }),
+                              1
+                            ),
+                          ]
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card" }, [
+                        _vm._m(3),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "collapse",
+                            attrs: {
+                              id: "collapseTwo",
+                              "aria-labelledby": "headingTwo",
+                              "data-parent": "#accordionExample",
+                            },
+                          },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "card-body" },
+                              _vm._l(
+                                _vm.surface_colors,
+                                function (color, type) {
+                                  return _c("ColorEditor", {
+                                    key: type,
+                                    attrs: { name: type },
+                                    model: {
+                                      value: _vm.surface_colors[type],
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.surface_colors, type, $$v)
+                                      },
+                                      expression: "surface_colors[type]",
+                                    },
+                                  })
+                                }
+                              ),
+                              1
+                            ),
+                          ]
+                        ),
+                      ]),
+                    ]
                   ),
                 ],
                 1
@@ -46293,6 +46654,8 @@ exports.default = _default;
               [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
             ),
             _vm._v(" "),
+            _vm._m(4),
+            _vm._v(" "),
             _c(
               "button",
               {
@@ -46307,9 +46670,8 @@ exports.default = _default;
                 },
               },
               [
-                _c("i", { staticClass: "far fa-question-circle mr-1" }, [
-                  _vm._v(" Help\n      "),
-                ]),
+                _c("i", { staticClass: "far fa-question-circle mr-1" }),
+                _vm._v(" Help\n      "),
               ]
             ),
           ]
@@ -46323,7 +46685,7 @@ exports.default = _default;
             _c("div", { staticClass: "row h-100" }, [
               _c(
                 "div",
-                { staticClass: "bg-dark col-1 p-0" },
+                { staticClass: "d-sm-none d-lg-block col-lg-1 bg-dark p-0" },
                 [
                   _c("ninja-sidebar", {
                     attrs: { with_versions: _vm.has_versions },
@@ -46451,11 +46813,10 @@ exports.default = _default;
                                   },
                                 },
                                 [
-                                  _c(
-                                    "i",
-                                    { staticClass: "fas fa-download mr-1" },
-                                    [_vm._v(" Download\n                  ")]
-                                  ),
+                                  _c("i", {
+                                    staticClass: "fas fa-download mr-1",
+                                  }),
+                                  _vm._v(" Download\n                  "),
                                 ]
                               ),
                               _vm._v(" "),
@@ -46470,11 +46831,8 @@ exports.default = _default;
                                   },
                                 },
                                 [
-                                  _c(
-                                    "i",
-                                    { staticClass: "fas fa-times mr-1" },
-                                    [_vm._v(" Close\n                  ")]
-                                  ),
+                                  _c("i", { staticClass: "fas fa-times mr-1" }),
+                                  _vm._v(" Close\n                  "),
                                 ]
                               ),
                             ]
@@ -46490,7 +46848,7 @@ exports.default = _default;
                           },
                           on: {
                             object_clicked: function ($event) {
-                              return _vm.move_to_object($event)
+                              return _vm.move_to_object([$event, -1, -1])
                             },
                           },
                         }),
@@ -46515,34 +46873,29 @@ exports.default = _default;
                         staticClass: "p-3",
                       },
                       [
-                        _c(
-                          "branch-selector",
-                          {
-                            attrs: { versioning: _vm.citymodel.versioning },
-                            model: {
-                              value: _vm.active_branch,
-                              callback: function ($$v) {
-                                _vm.active_branch = $$v
-                              },
-                              expression: "active_branch",
+                        _c("branch-selector", {
+                          attrs: { versioning: _vm.citymodel.versioning },
+                          model: {
+                            value: _vm.active_branch,
+                            callback: function ($$v) {
+                              _vm.active_branch = $$v
+                            },
+                            expression: "active_branch",
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("version-list", {
+                          attrs: {
+                            versioning: _vm.citymodel.versioning,
+                            active_branch: _vm.active_branch,
+                            active_version: _vm.active_version,
+                          },
+                          on: {
+                            "update:active_version": function ($event) {
+                              _vm.active_version = $event
                             },
                           },
-                          [
-                            _c("version-list", {
-                              attrs: {
-                                versioning: _vm.citymodel.versioning,
-                                active_branch: _vm.active_branch,
-                                active_version: _vm.active_version,
-                              },
-                              on: {
-                                "update:active_version": function ($event) {
-                                  _vm.active_version = $event
-                                },
-                              },
-                            }),
-                          ],
-                          1
-                        ),
+                        }),
                       ],
                       1
                     )
@@ -46569,6 +46922,8 @@ exports.default = _default;
                                   _vm.selected_objid
                                 ],
                               cityobject_id: _vm.selected_objid,
+                              "geometry-id": _vm.selectedGeometryId,
+                              "boundary-id": _vm.selectedBoundaryId,
                               expanded: 0,
                               editable: true,
                             },
@@ -46588,78 +46943,219 @@ exports.default = _default;
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "ThreeJsViewer",
-                    {
-                      attrs: {
-                        citymodel: _vm.activeCityModel,
-                        "selected-objid": _vm.selected_objid,
-                        "object-colors": _vm.object_colors,
-                        "background-color": _vm.background_color,
+                  _c("ThreeJsViewer", {
+                    ref: "viewer",
+                    attrs: {
+                      citymodel: _vm.activeCityModel,
+                      "selected-objid": _vm.selected_objid,
+                      "selected-geom-idx": _vm.selectedGeometryId,
+                      "selected-boundary-idx": _vm.selectedBoundaryId,
+                      "object-colors": _vm.object_colors,
+                      "surface-colors": _vm.surface_colors,
+                      "background-color": _vm.background_color,
+                      "selection-color": _vm.selectionColor,
+                      "show-semantics": _vm.showSemantics,
+                      "active-lod": _vm.activeLoD,
+                      "camera-spotlight": _vm.cameraLight,
+                      "highlight-selected-surface": _vm.highlightSurface,
+                    },
+                    on: {
+                      object_clicked: function ($event) {
+                        return _vm.move_to_object($event)
                       },
-                      on: {
-                        object_clicked: function ($event) {
-                          return _vm.move_to_object($event)
-                        },
-                        rendering: function ($event) {
-                          _vm.loading = $event
-                        },
+                      rendering: function ($event) {
+                        _vm.loading = $event
+                      },
+                      chunkLoaded: function ($event) {
+                        _vm.availableLoDs = _vm.$refs.viewer.getLods()
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticStyle: {
+                        position: "absolute",
+                        "z-index": "1",
+                        bottom: "0px",
+                        left: "0px",
                       },
                     },
                     [
                       _c(
                         "div",
+                        { staticClass: "custom-control custom-switch ml-1" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.highlightSurface,
+                                expression: "highlightSurface",
+                              },
+                            ],
+                            staticClass: "custom-control-input",
+                            attrs: { id: "surfaceSwitch", type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.highlightSurface)
+                                ? _vm._i(_vm.highlightSurface, null) > -1
+                                : _vm.highlightSurface,
+                            },
+                            on: {
+                              change: function ($event) {
+                                var $$a = _vm.highlightSurface,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      (_vm.highlightSurface = $$a.concat([$$v]))
+                                  } else {
+                                    $$i > -1 &&
+                                      (_vm.highlightSurface = $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1)))
+                                  }
+                                } else {
+                                  _vm.highlightSurface = $$c
+                                }
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-control-label",
+                              attrs: { for: "surfaceSwitch" },
+                            },
+                            [_vm._v("Select surface")]
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "custom-control custom-switch ml-1" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.showSemantics,
+                                expression: "showSemantics",
+                              },
+                            ],
+                            staticClass: "custom-control-input",
+                            attrs: { id: "semanticsSwitch", type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.showSemantics)
+                                ? _vm._i(_vm.showSemantics, null) > -1
+                                : _vm.showSemantics,
+                            },
+                            on: {
+                              change: function ($event) {
+                                var $$a = _vm.showSemantics,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      (_vm.showSemantics = $$a.concat([$$v]))
+                                  } else {
+                                    $$i > -1 &&
+                                      (_vm.showSemantics = $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1)))
+                                  }
+                                } else {
+                                  _vm.showSemantics = $$c
+                                }
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-control-label",
+                              attrs: { for: "semanticsSwitch" },
+                            },
+                            [_vm._v("Semantics")]
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
                         {
-                          staticClass: "card",
-                          staticStyle: {
-                            position: "absolute",
-                            "z-index": "1",
-                            bottom: "0px",
-                            right: "0px",
+                          staticClass: "btn-group ml-1 mb-1 bg-white",
+                          attrs: {
+                            role: "group",
+                            "aria-label": "Basic example",
                           },
                         },
                         [
-                          _c("div", { staticClass: "m-1 px-2" }, [
-                            _c(
-                              "a",
-                              {
-                                attrs: {
-                                  href: "https://cityjson.org",
-                                  target: "_blank",
+                          _c(
+                            "button",
+                            {
+                              class: [
+                                "btn",
+                                _vm.activeLoD == -1
+                                  ? "btn-primary"
+                                  : "btn-outline-primary",
+                              ],
+                              attrs: { type: "button" },
+                              on: {
+                                click: function ($event) {
+                                  _vm.activeLoD = -1
                                 },
                               },
-                              [
-                                _c("img", {
-                                  attrs: {
-                                    src: "https://www.cityjson.org/assets/images/cityjson_logo.svg",
-                                    alt: "",
-                                  },
-                                }),
-                              ]
-                            ),
-                          ]),
+                            },
+                            [_vm._v("\n                All\n              ")]
+                          ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "m-1 px-2" }, [
-                            _c(
-                              "a",
+                          _vm._l(_vm.availableLoDs, function (lod, idx) {
+                            return _c(
+                              "button",
                               {
-                                staticClass: "card-link",
-                                attrs: {
-                                  href: "https://github.com/cityjson/ninja",
-                                  target: "_blank",
+                                key: lod,
+                                class: [
+                                  "btn",
+                                  _vm.activeLoD == idx
+                                    ? "btn-primary"
+                                    : "btn-outline-primary",
+                                ],
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function ($event) {
+                                    _vm.activeLoD = idx
+                                  },
                                 },
                               },
                               [
-                                _c("i", { staticClass: "fab fa-github" }, [
-                                  _vm._v(" ninja v0.4.0"),
-                                ]),
+                                _vm._v(
+                                  "\n                LoD" +
+                                    _vm._s(lod) +
+                                    "\n              "
+                                ),
                               ]
-                            ),
-                          ]),
-                        ]
+                            )
+                          }),
+                        ],
+                        2
                       ),
                     ]
                   ),
+                  _vm._v(" "),
+                  _vm._m(5),
                 ],
                 1
               ),
@@ -46667,61 +47163,68 @@ exports.default = _default;
           ]),
         ])
       : _c("div", [
-          _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("main", { staticClass: "col-12 py-md-3 pl-md-5" }, [
-                _c("h2", [_vm._v("File upload")]),
-                _vm._v(" "),
-                _c("p", [_vm._v("Upload a CityJSON file to have fun!")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group mb-3" }, [
-                  _vm._m(2),
+          _c(
+            "div",
+            {
+              staticClass: "container",
+              staticStyle: { width: "75%", "max-width": "680px" },
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _c("main", { staticClass: "col-12 py-md-3 pl-md-5" }, [
+                  _c("h2", [_vm._v("File upload")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "custom-file" }, [
-                    _c("input", {
-                      ref: "cityJSONFile",
-                      staticClass: "custom-file-input",
-                      attrs: { id: "inputGroupFile01", type: "file" },
-                      on: { change: _vm.selectedFile },
-                    }),
+                  _c("p", [_vm._v("Upload a CityJSON file to have fun!")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group mb-3" }, [
+                    _vm._m(6),
                     _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "custom-file-label",
-                        attrs: { for: "inputGroupFile01" },
-                      },
-                      [_vm._v("Choose file or drop it here...")]
-                    ),
+                    _c("div", { staticClass: "custom-file" }, [
+                      _c("input", {
+                        ref: "cityJSONFile",
+                        staticClass: "custom-file-input",
+                        attrs: { id: "inputGroupFile01", type: "file" },
+                        on: { change: _vm.selectedFile },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-file-label",
+                          attrs: { for: "inputGroupFile01" },
+                        },
+                        [_vm._v("Choose file or drop it here...")]
+                      ),
+                    ]),
                   ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.error_message,
+                          expression: "error_message",
+                        },
+                      ],
+                      staticClass: "alert alert-danger",
+                      attrs: { role: "alert" },
+                    },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(_vm.error_message) +
+                          "\n            "
+                      ),
+                      _vm._m(7),
+                    ]
+                  ),
                 ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.error_message,
-                        expression: "error_message",
-                      },
-                    ],
-                    staticClass: "alert alert-danger",
-                    attrs: { role: "alert" },
-                  },
-                  [
-                    _vm._v(
-                      "\n            " +
-                        _vm._s(_vm.error_message) +
-                        "\n            "
-                    ),
-                    _vm._m(3),
-                  ]
-                ),
               ]),
-            ]),
-          ]),
+            ]
+          ),
         ]),
   ])
 }
@@ -46756,9 +47259,8 @@ var staticRenderFns = [
                     attrs: { id: "helpModelLabel" },
                   },
                   [
-                    _c("i", { staticClass: "far fa-question-circle mr-1" }, [
-                      _vm._v(" Help\n          "),
-                    ]),
+                    _c("i", { staticClass: "far fa-question-circle mr-1" }),
+                    _vm._v(" Help\n          "),
                   ]
                 ),
                 _vm._v(" "),
@@ -46781,18 +47283,16 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("p", [
-                  _vm._v("This is ninja, our new viewer for CityJSON."),
-                ]),
+                _c("p", [_vm._v("This is ninja, our viewer for CityJSON.")]),
                 _vm._v(" "),
                 _c("p", [
-                  _vm._v("The source code is available in our GitHub "),
+                  _vm._v("The source code is available in "),
                   _c(
                     "a",
                     { attrs: { href: "https://github.com/cityjson/ninja" } },
-                    [_vm._v("repository")]
+                    [_vm._v("GitHub")]
                   ),
-                  _vm._v(". Have fun and report any issues found "),
+                  _vm._v(". Have fun and, please, report any issues found "),
                   _c(
                     "a",
                     {
@@ -46816,21 +47316,26 @@ var staticRenderFns = [
                   _vm._v(" "),
                   _c("li", [
                     _vm._v(
-                      "Double-click on an object in the 3D view to select it."
+                      "Click or tap on an object in the 3D view to select it."
                     ),
                   ]),
                   _vm._v(" "),
                   _c("li", [
                     _vm._v(
-                      "When an object is selected you see a card with it's information (oh, wow)!"
+                      "When an object is selected you see a card with it's information (oh, wow)! If you click on a surface with semantics, its information will also be accessible."
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v(
+                      "Toggle between different LoDs by clicking on the corresponding buttons on the bottom left corner of the viewer."
                     ),
                   ]),
                   _vm._v(" "),
                   _c("li", [
                     _vm._v("Toggle the editing mode with the "),
-                    _c("i", { staticClass: "fas fa-pen mx-1 text-muted" }, [
-                      _vm._v(" icon to edit it. Then save the changes"),
-                    ]),
+                    _c("i", { staticClass: "fas fa-pen mx-1 text-muted" }),
+                    _vm._v(" icon to edit it. Then save the changes."),
                   ]),
                   _vm._v(" "),
                   _c("li", [
@@ -46857,9 +47362,8 @@ var staticRenderFns = [
         "h5",
         { staticClass: "modal-title", attrs: { id: "helpModelLabel" } },
         [
-          _c("i", { staticClass: "fas fa-sliders-h mr-1" }, [
-            _vm._v(" Settings\n          "),
-          ]),
+          _c("i", { staticClass: "fas fa-sliders-h mr-1" }),
+          _vm._v(" Settings\n          "),
         ]
       ),
       _vm._v(" "),
@@ -46881,9 +47385,135 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-header", attrs: { id: "headingOne" } },
+      [
+        _c("h2", { staticClass: "mb-0" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-link btn-block text-left collapsed",
+              attrs: {
+                type: "button",
+                "data-toggle": "collapse",
+                "data-target": "#collapseOne",
+                "aria-expanded": "true",
+                "aria-controls": "collapseOne",
+              },
+            },
+            [_vm._v("\n                    Object Colours\n                  ")]
+          ),
+        ]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-header", attrs: { id: "headingTwo" } },
+      [
+        _c("h2", { staticClass: "mb-0" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-link btn-block text-left collapsed",
+              attrs: {
+                type: "button",
+                "data-toggle": "collapse",
+                "data-target": "#collapseTwo",
+                "aria-expanded": "false",
+                "aria-controls": "collapseTwo",
+              },
+            },
+            [
+              _vm._v(
+                "\n                    Surface Colours\n                  "
+              ),
+            ]
+          ),
+        ]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-outline-info mr-1",
+        attrs: {
+          type: "button",
+          "data-toggle": "modal",
+          "data-target": "#configModal",
+        },
+      },
+      [
+        _c("i", { staticClass: "fas fa-sliders-h mr-1" }),
+        _vm._v(" Settings\n      "),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "card",
+        staticStyle: {
+          position: "absolute",
+          "z-index": "1",
+          bottom: "0px",
+          right: "0px",
+        },
+      },
+      [
+        _c("div", { staticClass: "m-1 px-2" }, [
+          _c(
+            "a",
+            { attrs: { href: "https://cityjson.org", target: "_blank" } },
+            [
+              _c("img", {
+                attrs: {
+                  src: "https://www.cityjson.org/assets/images/cityjson_logo.svg",
+                  alt: "",
+                },
+              }),
+            ]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-1 px-2" }, [
+          _c(
+            "a",
+            {
+              staticClass: "card-link",
+              attrs: {
+                href: "https://github.com/cityjson/ninja",
+                target: "_blank",
+              },
+            },
+            [_c("i", { staticClass: "fab fa-github" }), _vm._v(" ninja v0.6.0")]
+          ),
+        ]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("span", { staticClass: "input-group-text" }, [
-        _c("i", { staticClass: "fas fa-upload mr-1" }, [_vm._v(" Upload")]),
+        _c("i", { staticClass: "fas fa-upload mr-1" }),
+        _vm._v(" Upload"),
       ]),
     ])
   },
@@ -57823,7 +58453,63 @@ if ( typeof noGlobal === "undefined" ) {
 return jQuery;
 } );
 
-},{"process":"../node_modules/process/browser.js"}],"../cityjson-vue-components/node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
+},{"process":"../node_modules/process/browser.js"}],"../cityjson-vue-components/src/helpers/icons.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getIconStyle = getIconStyle;
+
+function getIconStyle(cityobj) {
+  var with_colour = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var type_icons = {
+    "Building": ['fas', 'fa-building', 'text-danger', 'mr-1'],
+    "BuildingPart": ['far', 'fa-building', 'text-danger', 'mr-1'],
+    "BuildingInstallation": ['fas', 'fa-city', 'text-danger', 'mr-1'],
+    "BuildingConstructiveElement": ['fas', 'fa-city', 'text-danger', 'mr-1'],
+    "BuildingFurniture": ['fas', 'fa-couch', 'text-danger', 'mr-1'],
+    "BuildingStorey": ['fas', 'fa-store', 'text-danger', 'mr-1'],
+    "BuildingRoom": ['fas', 'fa-door-open', 'text-danger', 'mr-1'],
+    "BuildingUnit": ['far', 'fa-building', 'text-danger', 'mr-1'],
+    "Bridge": ['fas', 'fa-archway', 'text-dark', 'mr-1'],
+    "BridgePart": ['fas', 'fa-archway', 'text-secondary', 'mr-1'],
+    "BridgeInstallation": ['fas', 'fa-archway', 'text-primary', 'mr-1'],
+    "BridgeConstructionElement": ['fas', 'fa-archway', 'text-warning', 'mr-1'],
+    "BridgeRoom": ['fas', 'fa-door-open', 'text-warning', 'mr-1'],
+    "BridgeFurniture": ['far', 'fa-couch', 'text-warning', 'mr-1'],
+    "CityObjectGroup": ['fas', 'fa-cubes', 'text-dark', 'mr-1'],
+    "CityFurniture": ['fas', 'fa-store-alt', 'text-danger', 'mr-1'],
+    "GenericCityObject": ['fas', 'fa-cube', 'text-danger', 'mr-1'],
+    "LandUse": ['fas', 'fa-chart-area', 'text-success', 'mr-1'],
+    "PlantCover": ['fas', 'fa-leaf', 'text-success', 'mr-1'],
+    "Railway": ['fas', 'fa-train', 'text-primary', 'mr-1'],
+    "Road": ['fas', 'fa-road', 'text-dark', 'mr-1'],
+    "SolitaryVegetationObject": ['fas', 'fa-tree', 'text-success', 'mr-1'],
+    "TINRelief": ['fas', 'fa-mountain', 'text-success', 'mr-1'],
+    "TransportSquare": ['fas', 'fa-circle-notch', 'text-dark', 'mr-1'],
+    "Tunnel": ['fas', 'fa-dot-circle', 'text-dark', 'mr-1'],
+    "TunnelPart": ['fas', 'fa-dot-circle', 'text-dark', 'mr-1'],
+    "TunnelInstallation": ['fas', 'fa-dot-circle', 'text-dark', 'mr-1'],
+    "TunnelFurniture": ['far', 'fa-couch', 'text-dark', 'mr-1'],
+    "WaterBody": ['fas', 'fa-water', 'text-primary', 'mr-1']
+  };
+
+  if (cityobj.type in type_icons) {
+    var icon_style = type_icons[cityobj.type];
+
+    if (!with_colour) {
+      icon_style.splice(2, 1);
+    }
+
+    return icon_style;
+  } else if (cityobj.type.startsWith('+')) {
+    return ['fas', 'fa-plus', 'text-primary', 'mr-1'];
+  } else {
+    return ['fas', 'fa-question', 'text-secondary', 'mr-1'];
+  }
+}
+},{}],"../cityjson-vue-components/node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
 var Vue // late bind
 var version
 var map = Object.create(null)
@@ -66757,12 +67443,41 @@ exports.default = void 0;
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
+var _icons = require("../helpers/icons");
+
 var _ExpandableBadge = _interopRequireDefault(require("./common/ExpandableBadge.vue"));
 
 var _GeometryBadge = _interopRequireDefault(require("./common/GeometryBadge.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -66909,6 +67624,14 @@ var _default = {
     citymodel: Object,
     cityobject: Object,
     cityobject_id: String,
+    geometryId: {
+      type: Number,
+      default: -1
+    },
+    boundaryId: {
+      type: Number,
+      default: -1
+    },
     selected: {
       type: Boolean,
       default: false
@@ -66926,16 +67649,71 @@ var _default = {
   },
   computed: {
     attributesCount: function attributesCount() {
-      return Object.keys(this.cityobject.attributes).length;
+      return this.cityobjectAttributesCount + Object.keys(this.surface).length;
+    },
+    cityobjectAttributesCount: function cityobjectAttributesCount() {
+      if ("attributes" in this.cityobject) {
+        return Object.keys(this.cityobject.attributes).length;
+      }
+
+      return 0;
     },
     hasAttributes: function hasAttributes() {
-      return "attributes" in this.cityobject && this.attributesCount > 0;
+      return "attributes" in this.cityobject && this.attributesCount > 0 || Object.keys(this.surface).length > 0;
+    },
+    surface: function surface() {
+      var geometry = this.cityobject.geometry[this.geometryId];
+
+      if (geometry === undefined) {
+        return {};
+      }
+
+      var geomType = geometry.type;
+
+      if (geometry.semantics) {
+        if (geomType == "Solid") {
+          var shells = geometry.boundaries;
+          var boundaryCount = 0;
+
+          for (var i = 0; i < shells.length; i++) {
+            if (this.boundaryId > boundaryCount + shells[i].length) {
+              continue;
+            }
+
+            var idx = geometry.semantics.values[i][this.boundaryId - boundaryCount];
+
+            if (idx != undefined) {
+              return geometry.semantics.surfaces[idx];
+            } else {
+              return {};
+            }
+          }
+        } else if (geomType == "MultiSurface" || geomType == "CompositeSurface") {
+          var surfaceIdx = geometry.semantics.values[this.boundaryId];
+          console.log(surfaceIdx);
+
+          if (surfaceIdx != undefined) {
+            return geometry.semantics.surfaces[surfaceIdx];
+          }
+        } else if (geomType == "MultiSolid" || geomType == "CompositeSolid") {
+          var solids = geometry.boundaries;
+
+          for (var _i = 0; _i < solids.length; _i++) {
+            for (var j = 0; j < solids[_i].length; j++) {
+              var semantics = geometry.semantics ? geometry.semantics.values[_i][j] : [];
+              this.parseShell(solids[_i][j], objectId, geomIdx, semantics, semanticSurfaces);
+            }
+          }
+        }
+      }
+
+      return {};
     },
     hasGeometries: function hasGeometries() {
       return this.cityobject.geometry;
     },
     iconType: function iconType() {
-      return this.getIconStyle(this.cityobject);
+      return (0, _icons.getIconStyle)(this.cityobject);
     },
     jsonString: {
       get: function get() {
@@ -66961,58 +67739,15 @@ var _default = {
         return {};
       }
     },
-    getIconStyle: function getIconStyle(cityobj) {
-      var with_colour = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      var type_icons = {
-        "Building": ['fas', 'fa-building', 'text-danger', 'mr-1'],
-        "BuildingPart": ['far', 'fa-building', 'text-danger', 'mr-1'],
-        "BuildingInstallation": ['fas', 'fa-city', 'text-danger', 'mr-1'],
-        "BuildingConstructiveElement": ['fas', 'fa-city', 'text-danger', 'mr-1'],
-        "BuildingFurniture": ['fas', 'fa-couch', 'text-danger', 'mr-1'],
-        "BuildingStorey": ['fas', 'fa-store', 'text-danger', 'mr-1'],
-        "BuildingRoom": ['fas', 'fa-door-open', 'text-danger', 'mr-1'],
-        "BuildingUnit": ['far', 'fa-building', 'text-danger', 'mr-1'],
-        "Bridge": ['fas', 'fa-archway', 'text-dark', 'mr-1'],
-        "BridgePart": ['fas', 'fa-archway', 'text-secondary', 'mr-1'],
-        "BridgeInstallation": ['fas', 'fa-archway', 'text-primary', 'mr-1'],
-        "BridgeConstructionElement": ['fas', 'fa-archway', 'text-warning', 'mr-1'],
-        "BridgeRoom": ['fas', 'fa-door-open', 'text-warning', 'mr-1'],
-        "BridgeFurniture": ['far', 'fa-couch', 'text-warning', 'mr-1'],
-        "CityObjectGroup": ['fas', 'fa-cubes', 'text-dark', 'mr-1'],
-        "CityFurniture": ['fas', 'fa-store-alt', 'text-danger', 'mr-1'],
-        "GenericCityObject": ['fas', 'fa-cube', 'text-danger', 'mr-1'],
-        "LandUse": ['fas', 'fa-chart-area', 'text-success', 'mr-1'],
-        "PlantCover": ['fas', 'fa-leaf', 'text-success', 'mr-1'],
-        "Railway": ['fas', 'fa-train', 'text-primary', 'mr-1'],
-        "Road": ['fas', 'fa-road', 'text-dark', 'mr-1'],
-        "SolitaryVegetationObject": ['fas', 'fa-tree', 'text-success', 'mr-1'],
-        "TINRelief": ['fas', 'fa-mountain', 'text-success', 'mr-1'],
-        "TransportSquare": ['fas', 'fa-circle-notch', 'text-dark', 'mr-1'],
-        "Tunnel": ['fas', 'fa-dot-circle', 'text-dark', 'mr-1'],
-        "TunnelPart": ['fas', 'fa-dot-circle', 'text-dark', 'mr-1'],
-        "TunnelInstallation": ['fas', 'fa-dot-circle', 'text-dark', 'mr-1'],
-        "TunnelFurniture": ['far', 'fa-couch', 'text-dark', 'mr-1'],
-        "WaterBody": ['fas', 'fa-water', 'text-primary', 'mr-1']
-      };
-
-      if (cityobj.type in type_icons) {
-        var icon_style = type_icons[cityobj.type];
-
-        if (!with_colour) {
-          icon_style.splice(2, 1);
-        }
-
-        return icon_style;
-      } else {
-        return ["fas", "fa-question", "text-secondary", "mr-1"];
-      }
-    },
     saveChanges: function saveChanges() {
       var card_id = _jquery.default.escapeSelector(this.cityobject_id);
 
       var new_json = document.querySelector("#".concat(card_id, " #json_data")).value;
       var new_cityobject = JSON.parse(new_json);
       this.$emit("input", new_cityobject);
+    },
+    getIconStyle: function getIconStyle(cityobj, with_colours) {
+      return (0, _icons.getIconStyle)(cityobj, with_colours);
     }
   }
 };
@@ -67201,7 +67936,7 @@ exports.default = _default;
               [
                 _vm._v(
                   "\n      " +
-                    _vm._s(this.cityobject.geometry.length) +
+                    _vm._s(_vm.cityobject.geometry.length) +
                     " Geometries\n    "
                 )
               ]
@@ -67227,7 +67962,7 @@ exports.default = _default;
         _c("hr"),
         _vm._v(" "),
         _c(
-          "table",
+          "div",
           {
             directives: [
               {
@@ -67236,27 +67971,97 @@ exports.default = _default;
                 value: _vm.edit_mode == false && _vm.is_mode(1),
                 expression: "edit_mode == false && is_mode(1)"
               }
-            ],
-            staticClass: "table table-striped table-borderless overflow-auto"
+            ]
           },
           [
             _c(
-              "tbody",
-              _vm._l(_vm.cityobject.attributes, function(value, key) {
-                return _c("tr", { key: key }, [
-                  _c("th", { staticClass: "py-1", attrs: { scope: "row" } }, [
-                    _c("small", { staticClass: "font-weight-bold" }, [
-                      _vm._v(_vm._s(key))
-                    ])
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.cityobjectAttributesCount > 0,
+                    expression: "cityobjectAttributesCount > 0"
+                  }
+                ]
+              },
+              [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-striped table-borderless overflow-auto"
+                  },
+                  [
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.cityobject.attributes, function(value, key) {
+                        return _c("tr", { key: key }, [
+                          _c(
+                            "th",
+                            { staticClass: "py-1", attrs: { scope: "row" } },
+                            [
+                              _c("small", { staticClass: "font-weight-bold" }, [
+                                _vm._v(_vm._s(key))
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "py-1" }, [
+                            _c("small", [_vm._v(_vm._s(value))])
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("hr")
+              ]
+            ),
+            _vm._v(" "),
+            Object.keys(_vm.surface).length > 0
+              ? _c("div", [
+                  _c("p", { staticClass: "h5" }, [
+                    _vm._v("\n          Active surface\n        ")
                   ]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "py-1" }, [
-                    _c("small", [_vm._v(_vm._s(value))])
-                  ])
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "table table-striped table-borderless overflow-auto"
+                    },
+                    [
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.surface, function(value, key) {
+                          return _c("tr", { key: key }, [
+                            _c(
+                              "th",
+                              { staticClass: "py-1", attrs: { scope: "row" } },
+                              [
+                                _c(
+                                  "small",
+                                  { staticClass: "font-weight-bold" },
+                                  [_vm._v(_vm._s(key))]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "py-1" }, [
+                              _c("small", [_vm._v(_vm._s(value))])
+                            ])
+                          ])
+                        }),
+                        0
+                      )
+                    ]
+                  )
                 ])
-              }),
-              0
-            )
+              : _vm._e()
           ]
         ),
         _vm._v(" "),
@@ -67310,35 +68115,42 @@ exports.default = _default;
             ]
           },
           [
-            _c(
-              "textarea",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.jsonString,
-                    expression: "jsonString"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { id: "json_data" },
-                domProps: { value: _vm.jsonString },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.jsonString = $event.target.value
-                  }
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.jsonString,
+                  expression: "jsonString"
                 }
-              },
-              [
-                _vm._v(
-                  '      <div class="d-flex justify-content-end mt-2">\n        <button type="button" class="btn btn-success btn-sm" @click="saveChanges">\n          <i class="fas fa-save mr-1"> Save\n        </i></button>\n      </div>\n    '
-                )
-              ]
-            )
+              ],
+              staticClass: "form-control",
+              attrs: { id: "json_data" },
+              domProps: { value: _vm.jsonString },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.jsonString = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "d-flex justify-content-end mt-2" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success btn-sm",
+                  attrs: { type: "button" },
+                  on: { click: _vm.saveChanges }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-save mr-1" }),
+                  _vm._v(" Save\n        ")
+                ]
+              )
+            ])
           ]
         )
       ]
@@ -67383,7 +68195,7 @@ render._withStripped = true
         
       }
     })();
-},{"jquery":"../cityjson-vue-components/node_modules/jquery/dist/jquery.js","./common/ExpandableBadge.vue":"../cityjson-vue-components/src/lib-components/common/ExpandableBadge.vue","./common/GeometryBadge.vue":"../cityjson-vue-components/src/lib-components/common/GeometryBadge.vue","vue-hot-reload-api":"../cityjson-vue-components/node_modules/vue-hot-reload-api/dist/index.js","vue":"../cityjson-vue-components/node_modules/vue/dist/vue.runtime.esm.js"}],"../cityjson-vue-components/src/lib-components/CityObjectCard.vue":[function(require,module,exports) {
+},{"jquery":"../cityjson-vue-components/node_modules/jquery/dist/jquery.js","../helpers/icons":"../cityjson-vue-components/src/helpers/icons.js","./common/ExpandableBadge.vue":"../cityjson-vue-components/src/lib-components/common/ExpandableBadge.vue","./common/GeometryBadge.vue":"../cityjson-vue-components/src/lib-components/common/GeometryBadge.vue","vue-hot-reload-api":"../cityjson-vue-components/node_modules/vue-hot-reload-api/dist/index.js","vue":"../cityjson-vue-components/node_modules/vue/dist/vue.runtime.esm.js"}],"../cityjson-vue-components/src/lib-components/CityObjectCard.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -67417,6 +68229,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 var _default = {
   name: "CityObjectCard",
   components: {
@@ -67426,6 +68240,14 @@ var _default = {
     citymodel: Object,
     cityobject: Object,
     cityobject_id: String,
+    geometryId: {
+      type: Number,
+      default: -1
+    },
+    boundaryId: {
+      type: Number,
+      default: -1
+    },
     selected: {
       type: Boolean,
       default: false
@@ -67554,6 +68376,8 @@ exports.default = _default;
               citymodel: _vm.citymodel,
               cityobject: _vm.cityobject,
               cityobject_id: _vm.cityobject_id,
+              "geometry-id": _vm.geometryId,
+              "boundary-id": _vm.boundaryId,
               editable: _vm.editable
             },
             on: {
@@ -84822,6 +85646,8 @@ exports.default = void 0;
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
+var _icons = require("../helpers/icons");
+
 var _GeometryBadge = _interopRequireDefault(require("./common/GeometryBadge.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -84923,7 +85749,7 @@ var _default = {
       return this.item.children;
     },
     iconType: function iconType() {
-      return this.getIconStyle(this.item);
+      return (0, _icons.getIconStyle)(this.item);
     }
   },
   methods: {
@@ -84955,52 +85781,6 @@ var _default = {
         return geometry_icons[geom_type];
       } else {
         return ['fas', 'fa-question'];
-      }
-    },
-    getIconStyle: function getIconStyle(cityobj) {
-      var with_colour = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      var type_icons = {
-        "Building": ['fas', 'fa-building', 'text-danger', 'mr-1'],
-        "BuildingPart": ['far', 'fa-building', 'text-danger', 'mr-1'],
-        "BuildingInstallation": ['fas', 'fa-city', 'text-danger', 'mr-1'],
-        "BuildingConstructiveElement": ['fas', 'fa-city', 'text-danger', 'mr-1'],
-        "BuildingFurniture": ['fas', 'fa-couch', 'text-danger', 'mr-1'],
-        "BuildingStorey": ['fas', 'fa-store', 'text-danger', 'mr-1'],
-        "BuildingRoom": ['fas', 'fa-door-open', 'text-danger', 'mr-1'],
-        "BuildingUnit": ['far', 'fa-building', 'text-danger', 'mr-1'],
-        "Bridge": ['fas', 'fa-archway', 'text-dark', 'mr-1'],
-        "BridgePart": ['fas', 'fa-archway', 'text-secondary', 'mr-1'],
-        "BridgeInstallation": ['fas', 'fa-archway', 'text-primary', 'mr-1'],
-        "BridgeConstructionElement": ['fas', 'fa-archway', 'text-warning', 'mr-1'],
-        "BridgeRoom": ['fas', 'fa-door-open', 'text-warning', 'mr-1'],
-        "BridgeFurniture": ['far', 'fa-couch', 'text-warning', 'mr-1'],
-        "CityObjectGroup": ['fas', 'fa-cubes', 'text-dark', 'mr-1'],
-        "CityFurniture": ['fas', 'fa-store-alt', 'text-danger', 'mr-1'],
-        "GenericCityObject": ['fas', 'fa-cube', 'text-danger', 'mr-1'],
-        "LandUse": ['fas', 'fa-chart-area', 'text-success', 'mr-1'],
-        "PlantCover": ['fas', 'fa-leaf', 'text-success', 'mr-1'],
-        "Railway": ['fas', 'fa-train', 'text-primary', 'mr-1'],
-        "Road": ['fas', 'fa-road', 'text-dark', 'mr-1'],
-        "SolitaryVegetationObject": ['fas', 'fa-tree', 'text-success', 'mr-1'],
-        "TINRelief": ['fas', 'fa-mountain', 'text-success', 'mr-1'],
-        "TransportSquare": ['fas', 'fa-circle-notch', 'text-dark', 'mr-1'],
-        "Tunnel": ['fas', 'fa-dot-circle', 'text-dark', 'mr-1'],
-        "TunnelPart": ['fas', 'fa-dot-circle', 'text-dark', 'mr-1'],
-        "TunnelInstallation": ['fas', 'fa-dot-circle', 'text-dark', 'mr-1'],
-        "TunnelFurniture": ['far', 'fa-couch', 'text-dark', 'mr-1'],
-        "WaterBody": ['fas', 'fa-water', 'text-primary', 'mr-1']
-      };
-
-      if (cityobj.type in type_icons) {
-        var icon_style = type_icons[cityobj.type];
-
-        if (!with_colour) {
-          icon_style.splice(2, 1);
-        }
-
-        return icon_style;
-      } else {
-        return ['fas', 'fa-question', 'text-secondary', 'mr-1'];
       }
     }
   }
@@ -85153,7 +85933,7 @@ render._withStripped = true
       
       }
     })();
-},{"lodash":"../cityjson-vue-components/node_modules/lodash/lodash.js","./common/GeometryBadge.vue":"../cityjson-vue-components/src/lib-components/common/GeometryBadge.vue","_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../cityjson-vue-components/node_modules/vue-hot-reload-api/dist/index.js","vue":"../cityjson-vue-components/node_modules/vue/dist/vue.runtime.esm.js"}],"../cityjson-vue-components/src/lib-components/CityObjectsTree.vue":[function(require,module,exports) {
+},{"lodash":"../cityjson-vue-components/node_modules/lodash/lodash.js","../helpers/icons":"../cityjson-vue-components/src/helpers/icons.js","./common/GeometryBadge.vue":"../cityjson-vue-components/src/lib-components/common/GeometryBadge.vue","_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../cityjson-vue-components/node_modules/vue-hot-reload-api/dist/index.js","vue":"../cityjson-vue-components/node_modules/vue/dist/vue.runtime.esm.js"}],"../cityjson-vue-components/src/lib-components/CityObjectsTree.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -123093,9 +123873,9 @@ function createColorsArray(colors) {
 } // Adjusts the three.js standard shader to include batchid highlight
 
 
-function createObjectColorShader(shader, objectColors) {
+function createObjectColorShader(shader, objectColors, surfaceColors) {
   const cm_data = createColorsArray(objectColors);
-  const surface_data = createColorsArray(_colors.defaultSemanticsColors);
+  const surface_data = createColorsArray(surfaceColors);
   const newShader = { ...shader
   };
   newShader.uniforms = {
@@ -123140,8 +123920,8 @@ function createObjectColorShader(shader, objectColors) {
 			attribute int type;
 			attribute int surfacetype;
 			varying vec3 diffuse_;
-			uniform vec3 objectColors[ 50 ];
-			uniform vec3 surfaceColors[ 50 ];
+			uniform vec3 objectColors[ 110 ];
+			uniform vec3 surfaceColors[ 110 ];
 			uniform vec3 highlightColor;
 			uniform float highlightedObjId;
 			uniform float highlightedGeomId;
@@ -123185,18 +123965,20 @@ class CityJSONWorkerParser {
     this.matrix = null;
     this.onChunkLoad = null;
     this.chunkSize = 2000;
+    this.loading = false;
     this.objectColors = _colors.defaultObjectColors;
-    this.surfaceColors = {};
+    this.surfaceColors = _colors.defaultSemanticsColors;
     this.lods = [];
     this.resetMaterial();
   }
 
   resetMaterial() {
-    this.material = new _three.ShaderMaterial(createObjectColorShader(_three.ShaderLib.lambert, this.objectColors));
+    this.material = new _three.ShaderMaterial(createObjectColorShader(_three.ShaderLib.lambert, this.objectColors, this.surfaceColors));
   }
 
   parse(data, scene) {
-    const worker = new Worker("ParserWorker.5a99993f.js");
+    this.loading = true;
+    const worker = new Worker("ParserWorker.63cd6336.js");
     const m = this.matrix;
     const onChunkLoad = this.onChunkLoad;
     const material = this.material;
@@ -123215,7 +123997,7 @@ class CityJSONWorkerParser {
       geom.setAttribute('surfacetype', new _three.Int32BufferAttribute(surfaceTypeArray, 1));
       const geomIdsArray = new Float32Array(e.data.geomIds);
       geom.setAttribute('geometryid', new _three.BufferAttribute(geomIdsArray, 1));
-      const lodIdsArray = new Float32Array(e.data.lodIds);
+      const lodIdsArray = new Int8Array(e.data.lodIds);
       geom.setAttribute('lodid', new _three.BufferAttribute(lodIdsArray, 1));
       const boundaryIdsArray = new Float32Array(e.data.boundaryIds);
       geom.setAttribute('boundaryid', new _three.BufferAttribute(boundaryIdsArray, 1));
@@ -123233,6 +124015,7 @@ class CityJSONWorkerParser {
       context.surfaceColors = e.data.surfaceColors;
       const mesh = new _three.Mesh(geom, material);
       scene.add(mesh);
+      context.loading = !e.data.finished;
 
       if (onChunkLoad) {
         onChunkLoad();
@@ -123249,7 +124032,7 @@ class CityJSONWorkerParser {
 }
 
 exports.CityJSONWorkerParser = CityJSONWorkerParser;
-},{"three":"../cityjson-vue-components/node_modules/three/build/three.module.js","../defaults/colors.js":"../cityjson-vue-components/node_modules/cityjson-threejs-loader/src/defaults/colors.js","./ParserWorker.js":[["ParserWorker.5a99993f.js","../cityjson-vue-components/node_modules/cityjson-threejs-loader/src/parsers/ParserWorker.js"],"ParserWorker.5a99993f.js.map","../cityjson-vue-components/node_modules/cityjson-threejs-loader/src/parsers/ParserWorker.js"]}],"../cityjson-vue-components/node_modules/cityjson-threejs-loader/src/index.js":[function(require,module,exports) {
+},{"three":"../cityjson-vue-components/node_modules/three/build/three.module.js","../defaults/colors.js":"../cityjson-vue-components/node_modules/cityjson-threejs-loader/src/defaults/colors.js","./helpers/ParserWorker.js":[["ParserWorker.63cd6336.js","../cityjson-vue-components/node_modules/cityjson-threejs-loader/src/parsers/helpers/ParserWorker.js"],"ParserWorker.63cd6336.js.map","../cityjson-vue-components/node_modules/cityjson-threejs-loader/src/parsers/helpers/ParserWorker.js"]}],"../cityjson-vue-components/node_modules/cityjson-threejs-loader/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -123325,6 +124108,22 @@ var _default2 = {
       type: String,
       default: null
     },
+    selectedGeomIdx: {
+      type: Number,
+      default: -1
+    },
+    selectedBoundaryIdx: {
+      type: Number,
+      default: -1
+    },
+    highlightSelectedSurface: {
+      type: Boolean,
+      default: false
+    },
+    selectionColor: {
+      type: Number,
+      default: 0xffc107
+    },
     objectColors: {
       type: Object,
       default: function _default() {
@@ -123378,95 +124177,72 @@ var _default2 = {
     activeLod: {
       type: Number,
       default: -1
+    },
+    cameraSpotlight: {
+      type: Boolean,
+      default: true
     }
   },
   data: function data() {
     return {
       camera_init: true,
       lods: [],
-      moved: false,
+      previousPos: {
+        x: -1,
+        y: -1
+      },
       parser: null
     };
   },
   watch: {
     backgroundColor: function backgroundColor(newVal) {
       this.renderer.setClearColor(newVal);
-      this.renderer.render(this.scene, this.camera);
+      this.updateScene();
     },
     objectColors: {
-      handler: function handler(newColors) {
-        var scope = this;
-        this.scene.traverse(function (mesh) {
-          if (mesh.material) {
-            for (var objtype in newColors) {
-              var idx = Object.keys(scope.parser.objectColors).indexOf(objtype);
-
-              if (idx > -1) {
-                var col = new THREE.Color();
-                col.setHex('0x' + newColors[objtype].toString(16));
-                mesh.material.uniforms.objectColors.value[idx] = col;
-              }
-            }
-          }
-        });
-        this.renderer.render(this.scene, this.camera);
+      handler: function handler() {
+        this.refreshColors();
+        this.updateScene();
       },
       deep: true
     },
     surfaceColors: {
-      handler: function handler(newColors) {
-        var scope = this;
-        this.scene.traverse(function (mesh) {
-          if (mesh.material) {
-            for (var surface in newColors) {
-              var idx = Object.keys(scope.parser.surfaceColors).indexOf(surface);
-
-              if (idx > -1) {
-                var col = new THREE.Color();
-                col.setHex('0x' + newColors[surface].toString(16));
-                mesh.material.uniforms.surfaceColors.value[idx] = col;
-              }
-            }
-          }
-        });
-        this.renderer.render(this.scene, this.camera);
+      handler: function handler() {
+        this.refreshColors();
+        this.updateScene();
       },
       deep: true
+    },
+    selectionColor: function selectionColor() {
+      this.refreshColors();
+      this.updateScene();
     },
     citymodel: {
-      handler: function handler(newVal) {
-        var _this = this;
-
-        this.$emit('rendering', true);
+      handler: function handler(newCitymodel) {
         this.clearScene();
-        this.parser = new _cityjsonThreejsLoader.CityJSONWorkerParser();
-        var parser = this.parser;
-        parser.chunkSize = 2000;
-        var scope = this;
-
-        parser.onChunkLoad = function () {
-          scope.renderer.render(scope.scene, scope.camera);
-          scope.lods = parser.lods;
-
-          _this.$emit('chunkLoaded');
-        };
-
-        var loader = new _cityjsonThreejsLoader.CityJSONLoader(parser);
-        loader.load(this.citymodel);
-        this.scene.add(loader.scene);
-        this.$emit('rendering', false);
+        this.loadCitymodel(newCitymodel);
+        this.updateScene();
       },
       deep: true
     },
-    selectedObjid: function selectedObjid(newId) {
-      var idx = Object.keys(this.citymodel.CityObjects).indexOf(newId);
+    selectedObjid: function selectedObjid() {
+      this.updateScene();
+    },
+    selectedGeomIdx: function selectedGeomIdx() {
+      this.updateScene();
+    },
+    selectedBoundaryIdx: function selectedBoundaryIdx() {
+      this.updateScene();
+    },
+    highlightSelectedSurface: function highlightSelectedSurface() {
+      var _this = this;
+
       this.scene.traverse(function (c) {
         if (c.material) {
-          c.material.uniforms.selectSurface.value = false;
-          c.material.uniforms.highlightedObjId.value = idx;
+          c.material.uniforms.selectSurface.value = _this.highlightSelectedSurface;
         }
       });
-      this.renderer.render(this.scene, this.camera);
+      this.updateScene();
     },
     showSemantics: function showSemantics(value) {
       this.scene.traverse(function (c) {
@@ -123474,7 +124250,7 @@ var _default2 = {
           c.material.uniforms.showSemantics.value = value;
         }
       });
-      this.renderer.render(this.scene, this.camera);
+      this.updateScene();
     },
     activeLod: function activeLod(lodIdx) {
       this.scene.traverse(function (c) {
@@ -123482,7 +124258,10 @@ var _default2 = {
           c.material.uniforms.showLod.value = lodIdx;
         }
       });
-      this.renderer.render(this.scene, this.camera);
+      this.updateScene();
+    },
+    cameraSpotlight: function cameraSpotlight() {
+      this.updateScene();
     }
   },
   beforeCreate: function beforeCreate() {
@@ -123492,47 +124271,105 @@ var _default2 = {
     this.controls = null;
     this.raycaster = null;
     this.mouse = null;
+    this.spotLight = null;
   },
   mounted: function mounted() {
-    var _this2 = this;
-
-    this.$emit('rendering', true);
     this.initScene();
-
-    if (Object.keys(this.citymodel).length > 0) {
-      this.parser = new _cityjsonThreejsLoader.CityJSONWorkerParser();
-      this.parser.chunkSize = 2000;
-      var scope = this;
-
-      this.parser.onChunkLoad = function () {
-        scope.renderer.render(scope.scene, scope.camera);
-        scope.lods = scope.parser.lods;
-
-        _this2.$emit('chunkLoaded');
-      };
-
-      var loader = new _cityjsonThreejsLoader.CityJSONLoader(this.parser);
-      loader.load(this.citymodel);
-      this.scene.add(loader.scene);
-    }
-
-    this.renderer.render(this.scene, this.camera);
+    this.loadCitymodel(this.citymodel);
+    this.updateScene();
     this.renderer.domElement.addEventListener('pointerdown', this.pointerDown, false);
     this.renderer.domElement.addEventListener('pointermove', this.pointerMove, false);
     this.renderer.domElement.addEventListener('pointerup', this.pointerUp, false);
-    this.$emit('rendering', false);
   },
   methods: {
-    pointerDown: function pointerDown() {
-      this.moved = false;
+    loadCitymodel: function loadCitymodel(citymodel) {
+      this.$emit('rendering', true);
+
+      if (Object.keys(citymodel).length > 0) {
+        this.parser = new _cityjsonThreejsLoader.CityJSONWorkerParser();
+        this.parser.chunkSize = 2000;
+        var scope = this;
+
+        this.parser.onChunkLoad = function () {
+          scope.lods = scope.parser.lods;
+
+          if (!scope.parser.loading) {
+            scope.$emit('rendering', false);
+          }
+
+          scope.refreshColors();
+          scope.updateScene();
+          scope.$emit('chunkLoaded');
+        };
+
+        var loader = new _cityjsonThreejsLoader.CityJSONLoader(this.parser);
+        loader.load(citymodel);
+        this.scene.add(loader.scene);
+      }
+    },
+    updateScene: function updateScene() {
+      var _this2 = this;
+
+      if (this.cameraSpotlight) {
+        this.spotLight.position.copy(this.camera.position);
+      }
+
+      var idx = Object.keys(this.citymodel.CityObjects).indexOf(this.selectedObjid);
+      this.scene.traverse(function (c) {
+        if (c.material) {
+          c.material.uniforms.selectSurface.value = _this2.highlightSelectedSurface;
+          c.material.uniforms.highlightedObjId.value = idx;
+          c.material.uniforms.highlightedGeomId.value = _this2.selectedGeomIdx;
+          c.material.uniforms.highlightedBoundId.value = _this2.selectedBoundaryIdx;
+        }
+      });
+      this.renderer.render(this.scene, this.camera);
+    },
+    refreshColors: function refreshColors() {
+      var _this3 = this;
+
+      var scope = this;
+      this.scene.traverse(function (mesh) {
+        if (mesh.material) {
+          for (var objtype in scope.objectColors) {
+            var idx = Object.keys(scope.parser.objectColors).indexOf(objtype);
+
+            if (idx > -1) {
+              var col = new THREE.Color();
+              col.setHex('0x' + _this3.objectColors[objtype].toString(16));
+              mesh.material.uniforms.objectColors.value[idx] = col;
+            }
+          }
+
+          for (var surface in scope.surfaceColors) {
+            var _idx = Object.keys(scope.parser.surfaceColors).indexOf(surface);
+
+            if (_idx > -1) {
+              var _col = new THREE.Color();
+
+              _col.setHex('0x' + scope.surfaceColors[surface].toString(16));
+
+              mesh.material.uniforms.surfaceColors.value[_idx] = _col;
+            }
+          }
+
+          mesh.material.uniforms.highlightColor.value.setHex('0x' + scope.selectionColor.toString(16));
+        }
+      });
+    },
+    pointerDown: function pointerDown(e) {
+      this.previousPos.x = e.clientX;
+      this.previousPos.y = e.clientY;
     },
     pointerUp: function pointerUp(e) {
-      if (!this.moved) {
+      if (this.previousPos.x == e.clientX && this.previousPos.y == e.clientY) {
         this.handleClick(e);
       }
     },
-    pointerMove: function pointerMove() {
-      this.moved = true;
+    pointerMove: function pointerMove(e) {
+      if (e.ctrlKey) {
+        this.handleClick(e);
+      }
     },
     getActiveIntersection: function getActiveIntersection(results) {
       // Filters through the results to find the first one for the active LoD
@@ -123573,8 +124410,10 @@ var _default2 = {
 
       if (objIds) {
         var idx = objIds.getX(face.a);
+        var geomId = object.geometry.getAttribute('geometryid').getX(face.a);
+        var boundId = object.geometry.getAttribute('boundaryid').getX(face.a);
         var objectId = Object.keys(this.citymodel.CityObjects)[idx];
-        this.$emit('object_clicked', objectId);
+        this.$emit('object_clicked', [objectId, geomId, boundId]);
       }
     },
     initScene: function initScene() {
@@ -123599,21 +124438,21 @@ var _default2 = {
       this.mouse = new THREE.Vector2(); //add AmbientLight (light that is only there that there's a minimum of light and you can see color)
       //kind of the natural daylight
 
-      var am_light = new THREE.AmbientLight(0xFFFFFF, 0.7); // soft white light
+      var am_light = new THREE.AmbientLight(0x666666, 0.7); // soft white light
 
       this.scene.add(am_light); // Add directional light
 
-      var spot_light = new THREE.SpotLight(0xDDDDDD);
-      spot_light.position.set(84616, -1, 447422);
-      spot_light.target = this.scene;
-      spot_light.castShadow = true;
-      spot_light.intensity = 0.4;
-      spot_light.position.normalize();
-      this.scene.add(spot_light); //render & orbit controls
+      this.spotLight = new THREE.SpotLight(0xDDDDDD);
+      this.spotLight.position.set(1, 2, 3);
+      this.spotLight.target = this.scene; // this.spotLight.castShadow = true;
+      // spot_light.intensity = 0.4;
+      // spot_light.position.normalize();
+
+      this.scene.add(this.spotLight); //render & orbit controls
 
       this.controls = new _OrbitControls.OrbitControls(this.camera, this.renderer.domElement);
       this.controls.addEventListener('change', function () {
-        self.renderer.render(self.scene, self.camera);
+        self.updateScene();
       });
       this.controls.target.set(0, 0, 0);
     },
@@ -131744,7 +132583,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38409" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38213" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
