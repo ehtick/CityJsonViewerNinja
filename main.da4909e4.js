@@ -47500,7 +47500,7 @@ var staticRenderFns = [
                 target: "_blank",
               },
             },
-            [_c("i", { staticClass: "fab fa-github" }), _vm._v(" ninja v0.6.0")]
+            [_c("i", { staticClass: "fab fa-github" }), _vm._v(" ninja v0.6.1")]
           ),
         ]),
       ]
