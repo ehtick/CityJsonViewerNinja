@@ -67662,6 +67662,10 @@ var _default = {
       return "attributes" in this.cityobject && this.attributesCount > 0 || Object.keys(this.surface).length > 0;
     },
     surface: function surface() {
+      if (this.cityobject.geometry === undefined) {
+        return {};
+      }
+
       var geometry = this.cityobject.geometry[this.geometryId];
 
       if (geometry === undefined) {
@@ -132583,7 +132587,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38213" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40269" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
